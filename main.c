@@ -1,11 +1,10 @@
 #include <stdio.h>
 
-int asm_add(int);
+int ft_strlen(char *str);
 
 int main(){
-	int a = 2;
-	int b = asm_add(a);
+	int len = ft_strlen("salut les potes");
 
-	printf("%d", b);
+	printf("%d", len);
 	return 0;
 }
