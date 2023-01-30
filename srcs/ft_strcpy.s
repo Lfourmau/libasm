@@ -8,7 +8,8 @@ section .text
 		pop rax
 		ret
 	.loop:
-		mov rdi, rsi ;si non, on MOV src -> dest
+		mov rax, [rsi]
+		mov [rdi], rax ;move value from rsi to rdi
 		inc rdi
 		inc rsi
 		cmp byte [rsi], 0x00
