@@ -8,6 +8,8 @@ ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
 ssize_t ft_read(int fildes, void *buf, size_t nbyte);
 char *ft_strcpy(char *dest, const char *src);
 int ft_strcmp(const char *s1, const char *s2);
+char *ft_strdup(const char *s);
+
 char *bigStr = "zHObYpJufpveb2xIatH0wGHGwmcRSKsWgIpOXReM0IvQmuCd42ZHicOTul9hpLgJxO6d1cHE5I5aF0izSXEu6JygosCAxVDfBH1SA9vAeG4BsJuq6ow6mBcYTy3T6CwAzlMGZ2sdPvd8NtDNqlOWJvRUDfyujuV94CKt54XN2a1DIT8CwIlvABGVFMDGicwh3qP7TDVQkaXzuMsljE0ZwOsdaQAJ1ggpkbtxQXv1G2FybThSQDlr16rUM4x8aur5mXs12ki81168PP9xlgZHZ9oiX46WUvlq9bcWU4nhh76ktUUfmLRw7ZrYz43ctTYMX6deb4Q2f3hGwCWQbfBovs1nEIeQ4t6EWJOPQS2hPkmUCUzxusPUgKi7kkU3eGD2IMpeS9ebPepyeS9BQsb5QJ8xcjxu3SotzWBoU7yIKzkAbrROBx4RbEwsuwqIshnSjU8nSwzrMwYCf2F1E039Jxdc1JR84RVFTFu53OXssFh3mjXosicg";
 
 int main(){
@@ -59,10 +61,16 @@ int main(){
 	char str8[] = "";	
 	printf("real strcmp -> %d\n", strcmp(str7, str8));
 	printf("My strcmp -> %d\n", ft_strcmp(str7, str8));
-	return 0;
 	char str9[] = "La string 8rer";
 	char strX[] = "La string 8rer oleole";	
 	printf("real strcmp -> %d\n", strcmp(str9, strX));
 	printf("My strcmp -> %d\n", ft_strcmp(str9, strX));
+	//STRDUP
+	char string[] = "Bonjour, dupplique moi";
+	char *newStr = strdup(string);
+	printf("%s\n", newStr);
+	free(newStr);
+	newStr = ft_strdup(string);
+	printf("%s\n", newStr);
 	return 0;
 }
