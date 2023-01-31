@@ -55,5 +55,14 @@ int main(){
 	char str6[] = "La string 8";	
 	printf("real strcmp -> %d\n", strcmp(str5, str6));
 	printf("My strcmp -> %d\n", ft_strcmp(str5, str6));
+	char str7[] = "La string 8rer";
+	char str8[] = "";	
+	printf("real strcmp -> %d\n", strcmp(str7, str8));
+	printf("My strcmp -> %d\n", ft_strcmp(str7, str8));
+	return 0;
+	char str9[] = "La string 8rer";
+	char strX[] = "La string 8rer oleole";	
+	printf("real strcmp -> %d\n", strcmp(str9, strX));
+	printf("My strcmp -> %d\n", ft_strcmp(str9, strX));
 	return 0;
 }
