@@ -5,7 +5,7 @@ extern _ft_strcpy
 section .text
 	global _ft_strdup
 	_ft_strdup:
-		cmp byte [rdi], 0x00
+		cmp rdi, 0x00
 		jz .return
 		push rdi ;stocker rdi (la chaine) avant le strlen
 		call _ft_strlen ;call strlen qui va mettre le ret dans rax

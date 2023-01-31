@@ -72,5 +72,9 @@ int main(){
 	free(newStr);
 	newStr = ft_strdup(string);
 	printf("%s\n", newStr);
+	newStr = strdup("");
+	printf("%s\n", newStr);
+	newStr = ft_strdup("");
+	printf("%s\n", newStr);
 	return 0;
 }
