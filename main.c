@@ -13,21 +13,24 @@ char *ft_strdup(const char *s);
 char *bigStr = "zHObYpJufpveb2xIatH0wGHGwmcRSKsWgIpOXReM0IvQmuCd42ZHicOTul9hpLgJxO6d1cHE5I5aF0izSXEu6JygosCAxVDfBH1SA9vAeG4BsJuq6ow6mBcYTy3T6CwAzlMGZ2sdPvd8NtDNqlOWJvRUDfyujuV94CKt54XN2a1DIT8CwIlvABGVFMDGicwh3qP7TDVQkaXzuMsljE0ZwOsdaQAJ1ggpkbtxQXv1G2FybThSQDlr16rUM4x8aur5mXs12ki81168PP9xlgZHZ9oiX46WUvlq9bcWU4nhh76ktUUfmLRw7ZrYz43ctTYMX6deb4Q2f3hGwCWQbfBovs1nEIeQ4t6EWJOPQS2hPkmUCUzxusPUgKi7kkU3eGD2IMpeS9ebPepyeS9BQsb5QJ8xcjxu3SotzWBoU7yIKzkAbrROBx4RbEwsuwqIshnSjU8nSwzrMwYCf2F1E039Jxdc1JR84RVFTFu53OXssFh3mjXosicg";
 
 int main(){
+	printf("\033[0;32mStrlen\033[0m\n\n");
 	//STRLEN
 	printf("10 chars string -> %d\n", ft_strlen("0123456789"));
 	printf("Empty string -> %d\n", ft_strlen(""));
 	printf("50 chars string -> %d\n", ft_strlen("qwertyuiop;loikjuyhgtrfdewsaqzxswqaswedfrtghyujkiu"));
 	printf("1 char string -> %d\n", ft_strlen("a"));
 	printf("500 char string -> %d\n", ft_strlen(bigStr));
+	printf("\n\033[0;32mWrite\033[0m\n\n");
 	//WRITE
-	printf(" -- return -> %zd\n", ft_write(1, "yoyoyo", 6));
+	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "yoyoyo", 6));
 	printf(" -- return -> %zd\n", write(1, "yoyoyo", 6));
-	printf(" -- return -> %zd\n", ft_write(1, "", 0));
+	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "", 0));
 	printf(" -- return -> %zd\n", write(1, "", 0));
-	printf(" -- return -> %zd\n", ft_write(1, "\n", 1));
+	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "\n", 1));
 	printf(" -- return -> %zd\n", write(1, "\n", 1));
-	printf(" -- return -> %zd\n", ft_write(1, "Bonjour a tous allez l'OL", 25));
+	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "Bonjour a tous allez l'OL", 25));
 	printf(" -- return -> %zd\n", write(1, "Bonjour a tous allez l'OL", 25));
+	printf("\n\033[0;32mRead\033[0m\n\n");
 	//READ
 	char buff[50];
 	read(1, buff, 49);
@@ -35,15 +38,18 @@ int main(){
 	char ft_buff[50];
 	ft_read(1, ft_buff, 49);
 	printf("%s", ft_buff);
+	printf("\n\033[0;32mStrcpy\033[0m\n\n");
 	//STRCPY
 	char *dest = malloc(sizeof(char) * 9);
-	char *src = "ohlalala";
-	strcpy(dest, src);
+	strcpy(dest, "ohlalala");
 	printf("%s\n", dest);
 	char *my_dest = malloc(sizeof(char) * 9);
-	char *my_src = "ohlalala";
-	ft_strcpy(my_dest, my_src);
+	ft_strcpy(my_dest, "ohlalala");
 	printf("%s\n", my_dest);
+	char *last = malloc(sizeof(char) * 9);
+	last = ft_strcpy(last, "bonsoirl");
+	printf("%s\n", last);
+	printf("\n\033[0;32mStrcmp\033[0m\n\n");
 	//STRCMP
 	char str1[] = "La string 8";
 	char str2[] = "La string 1";
@@ -65,6 +71,7 @@ int main(){
 	char strX[] = "La string 8rer oleole";	
 	printf("real strcmp -> %d\n", strcmp(str9, strX));
 	printf("My strcmp -> %d\n", ft_strcmp(str9, strX));
+	printf("\n\033[0;32mStrdup\033[0m\n\n");
 	//STRDUP
 	char string[] = "Bonjour, dupplique moi";
 	char *newStr = strdup(string);
@@ -72,9 +79,16 @@ int main(){
 	free(newStr);
 	newStr = ft_strdup(string);
 	printf("%s\n", newStr);
+	free(newStr);
 	newStr = strdup("");
 	printf("%s\n", newStr);
+	free(newStr);
 	newStr = ft_strdup("");
 	printf("%s\n", newStr);
+	free(newStr);
+	free(dest);
+	free(my_dest);
+	free(last);
+	
 	return 0;
 }
