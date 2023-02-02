@@ -40,13 +40,13 @@ void read_tests(int to_read){
 	printf("\n\033[0;32mRead\033[0m\n\n");
 	//READ
 	char *buff = calloc(to_read + 1, sizeof(char));
-	read(fd, buff, to_read);
-	printf("[%s]\n", buff);
+	int ret = read(fd, buff, to_read);
+	printf("[%s] -- ret = %d\n", buff, ret);
 	close(fd);
 	fd = open("./utils/read_test.txt", O_RDONLY);
 	char *ft_buff = calloc(to_read + 1, sizeof(char));
-	ft_read(fd, ft_buff, to_read);
-	printf("[%s]\n", ft_buff);
+	ret = ft_read(fd, ft_buff, to_read);
+	printf("[%s] -- ret = %d\n", ft_buff, ret);
 }
 
 void strcpy_tests(){
