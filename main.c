@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <fcntl.h>
 
 int ft_strlen(char *str);
 ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
@@ -12,7 +13,7 @@ char *ft_strdup(const char *s);
 
 char *bigStr = "zHObYpJufpveb2xIatH0wGHGwmcRSKsWgIpOXReM0IvQmuCd42ZHicOTul9hpLgJxO6d1cHE5I5aF0izSXEu6JygosCAxVDfBH1SA9vAeG4BsJuq6ow6mBcYTy3T6CwAzlMGZ2sdPvd8NtDNqlOWJvRUDfyujuV94CKt54XN2a1DIT8CwIlvABGVFMDGicwh3qP7TDVQkaXzuMsljE0ZwOsdaQAJ1ggpkbtxQXv1G2FybThSQDlr16rUM4x8aur5mXs12ki81168PP9xlgZHZ9oiX46WUvlq9bcWU4nhh76ktUUfmLRw7ZrYz43ctTYMX6deb4Q2f3hGwCWQbfBovs1nEIeQ4t6EWJOPQS2hPkmUCUzxusPUgKi7kkU3eGD2IMpeS9ebPepyeS9BQsb5QJ8xcjxu3SotzWBoU7yIKzkAbrROBx4RbEwsuwqIshnSjU8nSwzrMwYCf2F1E039Jxdc1JR84RVFTFu53OXssFh3mjXosicg";
 
-int main(){
+void strlen_tests(){
 	printf("\033[0;32mStrlen\033[0m\n\n");
 	//STRLEN
 	printf("10 chars string -> %d\n", ft_strlen("0123456789"));
@@ -20,6 +21,8 @@ int main(){
 	printf("50 chars string -> %d\n", ft_strlen("qwertyuiop;loikjuyhgtrfdewsaqzxswqaswedfrtghyujkiu"));
 	printf("1 char string -> %d\n", ft_strlen("a"));
 	printf("500 char string -> %d\n", ft_strlen(bigStr));
+}
+void write_tests(){
 	printf("\n\033[0;32mWrite\033[0m\n\n");
 	//WRITE
 	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "yoyoyo", 6));
@@ -30,14 +33,23 @@ int main(){
 	printf(" -- return -> %zd\n", write(1, "\n", 1));
 	printf(" -- return -> %zd (ft_write)\n", ft_write(1, "Bonjour a tous allez l'OL", 25));
 	printf(" -- return -> %zd\n", write(1, "Bonjour a tous allez l'OL", 25));
+}
+
+void read_tests(int to_read){
+	int fd = open("./utils/read_test.txt", O_RDONLY);
 	printf("\n\033[0;32mRead\033[0m\n\n");
 	//READ
-	char buff[50];
-	read(1, buff, 49);
-	printf("%s", buff);
-	char ft_buff[50];
-	ft_read(1, ft_buff, 49);
-	printf("%s", ft_buff);
+	char *buff = calloc(to_read + 1, sizeof(char));
+	read(fd, buff, to_read);
+	printf("[%s]\n", buff);
+	close(fd);
+	fd = open("./utils/read_test.txt", O_RDONLY);
+	char *ft_buff = calloc(to_read + 1, sizeof(char));
+	ft_read(fd, ft_buff, to_read);
+	printf("[%s]\n", ft_buff);
+}
+
+void strcpy_tests(){
 	printf("\n\033[0;32mStrcpy\033[0m\n\n");
 	//STRCPY
 	char *dest = malloc(sizeof(char) * 9);
@@ -46,9 +58,21 @@ int main(){
 	char *my_dest = malloc(sizeof(char) * 9);
 	ft_strcpy(my_dest, "ohlalala");
 	printf("%s\n", my_dest);
+	char *string1 = malloc(sizeof(char) * 9);
+	strcpy(string1, "");
+	printf("%s\n", string1);
+	char *string2 = malloc(sizeof(char) * 9);
+	ft_strcpy(string2, "");
+	printf("%s\n", string2);
 	char *last = malloc(sizeof(char) * 9);
 	last = ft_strcpy(last, "bonsoirl");
 	printf("%s\n", last);
+	free(dest);
+	free(my_dest);
+	free(last);
+}
+
+void strcmp_tests(){
 	printf("\n\033[0;32mStrcmp\033[0m\n\n");
 	//STRCMP
 	char str1[] = "La string 8";
@@ -71,6 +95,8 @@ int main(){
 	char strX[] = "La string 8rer oleole";	
 	printf("real strcmp -> %d\n", strcmp(str9, strX));
 	printf("My strcmp -> %d\n", ft_strcmp(str9, strX));
+}
+void strdup_tests(){
 	printf("\n\033[0;32mStrdup\033[0m\n\n");
 	//STRDUP
 	char string[] = "Bonjour, dupplique moi";
@@ -86,9 +112,16 @@ int main(){
 	newStr = ft_strdup("");
 	printf("%s\n", newStr);
 	free(newStr);
-	free(dest);
-	free(my_dest);
-	free(last);
-	
+}
+
+int main(){
+	strlen_tests();
+	write_tests();
+	read_tests(10);
+	read_tests(50);
+	read_tests(85);
+	strcmp_tests();
+	strcpy_tests();
+	strdup_tests();
 	return 0;
 }
