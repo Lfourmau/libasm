@@ -47,6 +47,8 @@ void read_tests(int to_read){
 	char *ft_buff = calloc(to_read + 1, sizeof(char));
 	ret = ft_read(fd, ft_buff, to_read);
 	printf("[%s] -- ret = %d\n", ft_buff, ret);
+	free(buff);
+	free(ft_buff);
 }
 
 void strcpy_tests(){
@@ -69,6 +71,8 @@ void strcpy_tests(){
 	printf("%s\n", last);
 	free(dest);
 	free(my_dest);
+	free(string1);
+	free(string2);
 	free(last);
 }
 
@@ -107,10 +111,10 @@ void strdup_tests(){
 	printf("%s\n", newStr);
 	free(newStr);
 	newStr = strdup("");
-	printf("%s\n", newStr);
+	printf("[%s]\n", newStr);
 	free(newStr);
 	newStr = ft_strdup("");
-	printf("%s\n", newStr);
+	printf("[%s]\n", newStr);
 	free(newStr);
 }
 

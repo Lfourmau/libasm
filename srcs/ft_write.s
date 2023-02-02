@@ -1,12 +1,12 @@
 section .text
 	global _ft_write
 	_ft_write:
-		cmp byte [rsi], 0x00
-		je .empty
+		;check the fd and jump to ret if < 0 ?
 		mov	rax,0x2000004
 		syscall
 		ret
-	
-	.empty:
-		mov rax, 0
+	.ret:
+		mov rax, -1
 		ret
+		;return the value for a bad fd
+
