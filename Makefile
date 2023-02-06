@@ -2,7 +2,7 @@ NAME = libasm.a
 
 CC = nasm
 
-FLAGS = -f macho64
+FLAGS = -f elf64 #macho64
 
 SRCS = 	srcs/ft_read.s \
 		srcs/ft_strcmp.s \
@@ -19,7 +19,7 @@ RM = rm -f
 	${CC} ${FLAGS} $< -o $@
 
 $(NAME) : ${OBJS}
-	ar -rc ${NAME} $?
+	ar -rcs ${NAME} $?
 
 all : ${NAME}
 

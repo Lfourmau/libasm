@@ -1,12 +1,18 @@
+extern __errno_location
+
 section .text
 	global _ft_write
 	_ft_write:
-		;check the fd and jump to ret if < 0 ?
-		mov	rax,0x2000004
+		mov	rax,1; 0x2000004
 		syscall
+		cmp rax, 0
+    	jl .error
 		ret
-	.ret:
+	.error:
+		neg rax    ; get absolute value of syscall return
+		mov rdi, rax
+		call __errno_location WRT ..plt
+		mov [rax], rdi  ; set the value of errno
 		mov rax, -1
 		ret
-		;return the value for a bad fd
 

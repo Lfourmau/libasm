@@ -2,9 +2,7 @@ section .text
 	global _ft_strcpy
 	_ft_strcpy:
 		push rdi
-		cmp byte [rsi], 0x00 ;check si src est nulle
-		;si src est null on ret
-		jne .loop
+		jne .loop ;si src est null on ret
 		pop rax
 		ret
 	.loop:
