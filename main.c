@@ -90,19 +90,19 @@ void strcpy_tests(){
 		free(dest);
 	}
 	{
-		char *dest = calloc(9,sizeof(char));
+		char *dest = calloc(1,sizeof(char));
 		strcpy(dest, "");
 		printf("{%s}\n", dest);
 		free(dest);
 	}
 	{
-		char *dest = calloc(9,sizeof(char));
+		char *dest = calloc(1,sizeof(char));
 		strcpy(dest, "");
 		printf("{%s}\n", dest);
 		free(dest);
 	}
 	{
-		char *ret;
+		char *ret = NULL;
 		char *dest = calloc(9,sizeof(char));
 		ret = _ft_strcpy(dest, "bonsoirl");
 		printf("%s\n", ret);
@@ -117,7 +117,7 @@ void strcpy_tests(){
 		printf("{%s -- %p}\n", dest, &dest[0]);
 	}
 	{
-		char *dest = calloc(500, sizeof(char));
+		char *dest = calloc(501, sizeof(char));
 		_ft_strcpy(dest, bigStr);
 		printf("%s\n", dest);
 		free(dest);
@@ -203,6 +203,12 @@ void strdup_tests(){
 	{
 		char const * src = "1"; char * s = wrap_strdup(src); 
 		printf("[%s]\n", s);
+		free(s);
+	}
+	{
+		char * s = _ft_strdup(bigStr); 
+		printf("[%s]\n", s);
+		free(s);
 	}
 }
 
