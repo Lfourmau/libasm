@@ -33,96 +33,177 @@ void write_tests(){
 	printf(" -- return -> %zd\n", write(1, "\n", 1));
 	printf(" -- return -> %zd (_ft_write)\n", _ft_write(1, "Bonjour a tous allez l'OL", 25));
 	printf(" -- return -> %zd\n", write(1, "Bonjour a tous allez l'OL", 25));
+	printf(" -- return -> %zd\n", _ft_write(-1, "Bonjour a tous allez l'OL", 25));
+	printf(" -- return -> %zd\n", write(-1, "Bonjour a tous allez l'OL", 25));
 }
 
 void read_tests(int to_read){
-	int fd = open("./utils/read_test.txt", O_RDONLY);
 	printf("\n\033[0;32mRead\033[0m\n\n");
-	//READ
-	char *buff = calloc(to_read + 1, sizeof(char));
-	int ret = read(fd, buff, to_read);
-	printf("[%s] -- ret = %d\n", buff, ret);
-	close(fd);
-	fd = open("./utils/read_test.txt", O_RDONLY);
-	char *ft_buff = calloc(to_read + 1, sizeof(char));
-	ret = _ft_read(fd, ft_buff, to_read);
-	printf("[%s] -- ret = %d\n", ft_buff, ret);
-	free(buff);
-	free(ft_buff);
+	if (to_read) {
+		{
+			int fd = open("./utils/read_test.txt", O_RDONLY);
+			//READ
+			char *buff = calloc(to_read + 1, sizeof(char));
+			int ret = read(fd, buff, to_read);
+			printf("[%s] -- ret = %d\n", buff, ret);
+			close(fd);
+			free(buff);
+		}
+		{
+			int fd = open("./utils/read_test.txt", O_RDONLY);
+			char *buff = calloc(to_read + 1, sizeof(char));
+			int ret = _ft_read(fd, buff, to_read);
+			printf("[%s] -- ret = %d\n", buff, ret);
+			close(fd);
+			free(buff);
+		}
+	}
+	else{
+		{
+			char *buffer = calloc(12 + 1, sizeof(char));
+			int ret = _ft_read(-1, buffer, 12);
+			printf("ft_read ret bad FD --> %d\n", ret);
+			free(buffer);
+		}
+		{
+			char *buffer = calloc(12 + 1, sizeof(char));
+			int ret = read(-1, buffer, 12);
+			printf("read ret bad FD --> %d\n", ret);
+			free(buffer);
+		}
+	}
 }
 
 void strcpy_tests(){
 	printf("\n\033[0;32mStrcpy\033[0m\n\n");
 	//STRCPY
-	char *dest = malloc(sizeof(char) * 9);
-	strcpy(dest, "ohlalala");
-	printf("%s\n", dest);
-	char *my_dest = malloc(sizeof(char) * 9);
-	_ft_strcpy(my_dest, "ohlalala");
-	printf("%s\n", my_dest);
-	char *string1 = malloc(sizeof(char) * 9);
-	strcpy(string1, "");
-	printf("{%s}\n", string1);
-	char *string2 = malloc(sizeof(char) * 9);
-	_ft_strcpy(string2, "");
-	printf("{%s}\n", string2);
-	char *last = malloc(sizeof(char) * 9);
-	char *tmp = malloc(sizeof(char) * 9);
-	last = _ft_strcpy(tmp, "bonsoirl");
-	printf("%s\n", last);
-	printf("%p -- %p\n", last, tmp);
-	char buffer[100] = {0};
-	_ft_strcpy(buffer, "");
-	printf("{%s -- %p}\n", buffer, &buffer[0]);
-	strcpy(buffer, "");
-	printf("{%s -- %p}\n", buffer, &buffer[0]);
-	free(dest);
-	free(my_dest);
-	free(string1);
-	free(string2);
-	free(last);
+	{
+		char *dest = calloc(9,sizeof(char));
+		strcpy(dest, "ohlalala");
+		printf("%s\n", dest);
+		free(dest);
+	}
+	{
+		char *dest = calloc(9,sizeof(char));
+		_ft_strcpy(dest, "ohlalala");
+		printf("%s\n", dest);
+		free(dest);
+	}
+	{
+		char *dest = calloc(9,sizeof(char));
+		strcpy(dest, "");
+		printf("{%s}\n", dest);
+		free(dest);
+	}
+	{
+		char *dest = calloc(9,sizeof(char));
+		strcpy(dest, "");
+		printf("{%s}\n", dest);
+		free(dest);
+	}
+	{
+		char *ret;
+		char *dest = calloc(9,sizeof(char));
+		ret = _ft_strcpy(dest, "bonsoirl");
+		printf("%s\n", ret);
+		printf("%p -- %p\n", ret, dest);
+		free(dest);
+	}
+	{
+		char dest[100] = {0};
+		_ft_strcpy(dest, "");
+		printf("{%s -- %p}\n", dest, &dest[0]);
+		strcpy(dest, "");
+		printf("{%s -- %p}\n", dest, &dest[0]);
+	}
+	{
+		char *dest = calloc(500, sizeof(char));
+		_ft_strcpy(dest, bigStr);
+		printf("%s\n", dest);
+		free(dest);
+	}
 }
 
 void strcmp_tests(){
 	printf("\n\033[0;32mStrcmp\033[0m\n\n");
 	//STRCMP
-	char str1[] = "La string 8";
-	char str2[] = "La string 1";
-	printf("real strcmp -> %d\n", strcmp(str1, str2));
-	printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
-	char str3[] = "La string 8";
-	char str4[] = "La string 8";	
-	printf("real strcmp -> %d\n", strcmp(str3, str4));
-	printf("My strcmp -> %d\n", _ft_strcmp(str3, str4));
-	char str5[] = "La string 8rer";
-	char str6[] = "La string 8";	
-	printf("real strcmp -> %d\n", strcmp(str5, str6));
-	printf("My strcmp -> %d\n", _ft_strcmp(str5, str6));
-	char str7[] = "La string 8rer";
-	char str8[] = "";	
-	printf("real strcmp -> %d\n", strcmp(str7, str8));
-	printf("My strcmp -> %d\n", _ft_strcmp(str7, str8));
-	char str9[] = "La string 8rer";
-	char strX[] = "La string 8rer oleole";	
-	printf("real strcmp -> %d\n", strcmp(str9, strX));
-	printf("My strcmp -> %d\n", _ft_strcmp(str9, strX));
+	{
+		char str1[] = "La string 8";
+		char str2[] = "La string 1";
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+	{
+		char str1[] = "La string 8";
+		char str2[] = "La string 8";	
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+	{
+		char str1[] = "La string 8rer";
+		char str2[] = "La string 8";	
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+	{
+		char str1[] = "La string 8rer";
+		char str2[] = "";	
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+	{
+		char str1[] = "La string 8rer";
+		char str2[] = "La string 8rer oleole";	
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+	{
+		char str1[] = "";
+		char str2[] = "";	
+		printf("real strcmp -> %d\n", strcmp(str1, str2));
+		printf("My strcmp -> %d\n", _ft_strcmp(str1, str2));
+	}
+}
+char * wrap_strdup(const char *s1)
+{
+	int tripouille[42];
+	char * r = _ft_strdup(s1);
+	tripouille[41] = 42;
+	return (r);
 }
 void strdup_tests(){
 	printf("\n\033[0;32mStrdup\033[0m\n\n");
 	//STRDUP
-	char string[] = "Bonjour, dupplique moi";
-	char *newStr = strdup(string);
-	printf("%s\n", newStr);
-	free(newStr);
-	newStr = _ft_strdup(string);
-	printf("%s\n", newStr);
-	free(newStr);
-	newStr = strdup("");
-	printf("[%s]\n", newStr);
-	free(newStr);
-	newStr = _ft_strdup("");
-	printf("[%s]\n", newStr);
-	free(newStr);
+	{
+		char *string = "Bonjour, dupplique moi";
+		char *newStr = strdup(string);
+		printf("%s\n", newStr);
+		free(newStr);
+		newStr = _ft_strdup(string);
+		printf("%s\n", newStr);
+		free(newStr);
+	}
+	{
+		char *newStr = strdup("");
+		printf("[%s]\n", newStr);
+		free(newStr);
+		newStr = _ft_strdup("");
+		printf("[%s]\n", newStr);
+		free(newStr);
+	}
+	{
+		char src[2] = "1";
+		char *newStr = strdup(src);
+		printf("[%s]\n", newStr);
+		free(newStr);
+		newStr = _ft_strdup(src);
+		printf("[%s]\n", newStr);
+		free(newStr);
+	}
+	{
+		char const * src = "1"; char * s = wrap_strdup(src); 
+		printf("[%s]\n", s);
+	}
 }
 
 int main(){
@@ -131,6 +212,7 @@ int main(){
 	read_tests(10);
 	read_tests(50);
 	read_tests(85);
+	read_tests(0);
 	strcmp_tests();
 	strcpy_tests();
 	strdup_tests();
